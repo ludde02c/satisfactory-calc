@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#14171c"/>
+  <g fill="none" stroke="#fa9549" stroke-width="34" stroke-linecap="round" stroke-linejoin="round">
+    <!-- simple factory / production glyph -->
+    <path d="M120 360 V236 l84 56 V236 l84 56 V236 l84 56 V360 Z" fill="#fa9549" stroke="#fa9549"/>
+    <path d="M120 360 H392" stroke="#14171c" stroke-width="0"/>
+  </g>
+  <circle cx="372" cy="150" r="40" fill="none" stroke="#e5832b" stroke-width="26"/>
+  <rect x="170" y="320" width="40" height="40" fill="#14171c"/>
+  <rect x="236" y="320" width="40" height="40" fill="#14171c"/>
+  <rect x="302" y="320" width="40" height="40" fill="#14171c"/>
+</svg>

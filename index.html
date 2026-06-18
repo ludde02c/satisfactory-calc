@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#14171c" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Sat Calc" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <title>Satisfactory Calculator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Satisfactory <span>Factory Calculator</span></h1>
+    <p>Production chains, machines, power, belts &amp; clock speeds</p>
+  </header>
+
+  <main>
+    <!-- ---- Input ---- -->
+    <section class="card" id="inputCard">
+      <div class="field">
+        <label for="itemSearch">Target item</label>
+        <div class="search-wrap">
+          <input type="text" id="itemSearch" placeholder="Type to search, e.g. heavy mod..." autocomplete="off" />
+          <div class="search-results" id="searchResults"></div>
+        </div>
+      </div>
+
+      <div class="field" id="rateField">
+        <label for="rate">Production rate (items/min)</label>
+        <input type="number" id="rate" value="10" min="0" step="any" inputmode="decimal" />
+      </div>
+
+      <div class="field toggle-row">
+        <label for="maximize">Maximize using limits below</label>
+        <span class="switch"><input type="checkbox" id="maximize" /><span class="slider"></span></span>
+      </div>
+
+      <div class="field toggle-row">
+        <label for="allowAlt">Allow alternate recipes</label>
+        <span class="switch"><input type="checkbox" id="allowAlt" /><span class="slider"></span></span>
+      </div>
+
+      <details class="adv">
+        <summary>Advanced limits &amp; transport</summary>
+
+        <div class="row field" style="margin-top:12px">
+          <div>
+            <label for="maxBelt">Max belt</label>
+            <select id="maxBelt"></select>
+          </div>
+          <div>
+            <label for="maxPipe">Max pipe</label>
+            <select id="maxPipe"></select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="power">Power budget (MW, optional)</label>
+          <input type="number" id="power" placeholder="e.g. 4000" min="0" step="any" inputmode="decimal" />
+        </div>
+
+        <div class="field">
+          <label>Resource limits (items/min)</label>
+          <div class="dyn-rows" id="resourceRows"></div>
+          <button type="button" class="btn-add" id="addResource">+ Add resource limit</button>
+        </div>
+
+        <div class="field">
+          <label>Resource nodes (miners)</label>
+          <div class="dyn-rows" id="nodeRows"></div>
+          <button type="button" class="btn-add" id="addNode">+ Add node</button>
+        </div>
+      </details>
+    </section>
+
+    <!-- ---- Results ---- -->
+    <section id="results" style="display:none">
+      <div class="tabs">
+        <button data-tab="overview" class="active">Overview</button>
+        <button data-tab="flow">Flow</button>
+        <button data-tab="steps">Steps</button>
+        <button data-tab="modules">Modules</button>
+      </div>
+
+      <div class="card tabpanel active" id="tab-overview"></div>
+      <div class="card tabpanel" id="tab-flow"></div>
+      <div class="card tabpanel" id="tab-steps"></div>
+      <div class="card tabpanel" id="tab-modules"></div>
+    </section>
+
+    <div class="empty" id="placeholder">Pick a target item and tap Calculate.</div>
+  </main>
+
+  <div class="calc-bar">
+    <button class="btn-calc" id="calcBtn">Calculate</button>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="solver.js"></script>
+  <script src="app.js"></script>
+
+  <!-- Offline support: cache the app so it works without internet once loaded.
+       Only runs over https / localhost; silently skipped for local files. -->
+  <script>
+    if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("sw.js").catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>

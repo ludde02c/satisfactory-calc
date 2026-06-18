@@ -1,0 +1,14 @@
+{
+  "name": "Satisfactory Factory Calculator",
+  "short_name": "Sat Calc",
+  "description": "Plan Satisfactory factories: machines, power, belts, pipes and clock speeds.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#14171c",
+  "theme_color": "#14171c",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
