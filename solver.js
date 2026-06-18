@@ -113,13 +113,26 @@
         }
       }
       for (const item of Object.keys(this.byOutput)) {
-        this.byOutput[item].sort((a, b) => this._sortKey(a, b));
+        this.byOutput[item].sort((a, b) => this._sortKey(a, b, item));
       }
     }
 
-    _sortKey(a, b) {
-      const altA = this.recipes[a].alternate ? 1 : 0;
-      const altB = this.recipes[b].alternate ? 1 : 0;
+    _sortKey(a, b, item) {
+      const ra = this.recipes[a];
+      const rb = this.recipes[b];
+      // Packager recipes are package/unpackage conversions (e.g. Packaged
+      // Turbofuel -> Turbofuel). And a recipe where this item is only a
+      // secondary output (e.g. Compacted Coal as a byproduct of Ionized Fuel)
+      // is not a real way to produce it. Neither should be the default
+      // producer when a proper recipe exists, or solving loops/cycles.
+      const pkgA = ra.building === "packager" ? 1 : 0;
+      const pkgB = rb.building === "packager" ? 1 : 0;
+      if (pkgA !== pkgB) return pkgA - pkgB;
+      const bypA = Object.keys(ra.outputs || {})[0] !== item ? 1 : 0;
+      const bypB = Object.keys(rb.outputs || {})[0] !== item ? 1 : 0;
+      if (bypA !== bypB) return bypA - bypB;
+      const altA = ra.alternate ? 1 : 0;
+      const altB = rb.alternate ? 1 : 0;
       if (altA !== altB) return altA - altB;
       return a < b ? -1 : a > b ? 1 : 0;
     }
