@@ -1,6 +1,6 @@
 // sw.js - tiny service worker so the app works offline once it has loaded once.
 // Bump CACHE when you change any app file so phones pick up the new version.
-const CACHE = "satcalc-v2";
+const CACHE = "satcalc-v3";
 const ASSETS = [
   "./",
   "./index.html",
